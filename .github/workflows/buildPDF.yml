@@ -19,7 +19,6 @@ jobs:
     - name: Release PDF
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_OWNER: ${owner}
-        GITHUB_REPO: ${repo}
+        GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
       run: docker run -v `pwd`:/app curl-json
 
