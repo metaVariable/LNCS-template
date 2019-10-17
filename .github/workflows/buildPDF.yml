@@ -13,12 +13,9 @@ jobs:
     - name: Build PDF
       run: docker run -v $PWD:/workdir paperist/alpine-texlive-ja latexmk main.tex
 
-    - name: Build release-image
-      run: docker build . -f Dockerfile -t curl-json
-      
     - name: Release PDF
+      uses: fnkr/github-action-ghr@v1
       env:
+        GHR_PATH: main.pdf
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
-      run: docker run -v `pwd`:/app curl-json
 
