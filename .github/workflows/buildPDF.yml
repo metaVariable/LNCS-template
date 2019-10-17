@@ -10,12 +10,16 @@ jobs:
     steps:
     - uses: actions/checkout@v1
       
-    - name: Build docker image
-      run: docker build . -f Dockerfile -t latexmk
-      
     - name: Build PDF
+      run: docker run --rm -it -v $PWD:/workdir paperist/alpine-texlive-ja latexmk main.tex
+
+    - name: Build release-image
+      run: docker build . -f Dockerfile -t releasePDF
+      
+    - name: Release PDF
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_OWNER: ${owner}
         GITHUB_REPO: ${repo}
-      run: docker run -v `pwd`:/app latexmk
+      run: docker run -v `pwd`:/app releasePDF
+
