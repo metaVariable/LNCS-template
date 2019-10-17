@@ -11,7 +11,7 @@ jobs:
     - uses: actions/checkout@v1
       
     - name: Build PDF
-      run: docker run --rm -it -v $PWD:/workdir paperist/alpine-texlive-ja latexmk main.tex
+      run: docker run -v $PWD:/workdir paperist/alpine-texlive-ja latexmk main.tex
 
     - name: Build release-image
       run: docker build . -f Dockerfile -t releasePDF
