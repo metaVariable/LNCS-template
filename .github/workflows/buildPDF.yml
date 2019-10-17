@@ -1,0 +1,21 @@
+name: Build PDF
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+      
+    - name: Build docker image
+      run: docker build . -f Dockerfile -t latexmk
+      
+    - name: Build PDF
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_OWNER: ${owner}
+        GITHUB_REPO: ${repo}
+      run: docker run -v `pwd`:/app latexmk
