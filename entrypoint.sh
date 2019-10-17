@@ -5,7 +5,7 @@ user=metaVariable
 repo=LNCS-template
 
 # build pdf (change if necessary)
-pdflatex main.tex
+pdflatex samplepaper.tex
 
 # create release
 res=`curl -H "Authorization: token $GITHUB_TOKEN" -X POST https://api.github.com/repos/$user/$repo/releases \
@@ -22,6 +22,6 @@ res=`curl -H "Authorization: token $GITHUB_TOKEN" -X POST https://api.github.com
 rel_id=`echo ${res} | python3 -c 'import json,sys;print(json.load(sys.stdin)["id"])'`
 
 # upload built pdf
-curl -H "Authorization: token $GITHUB_TOKEN" -X POST https://uploads.github.com/repos/$user/$repo/releases/${rel_id}/assets?name=main.pdf\
+curl -H "Authorization: token $GITHUB_TOKEN" -X POST https://uploads.github.com/repos/$user/$repo/releases/${rel_id}/assets?name=samplepaper.pdf\
   --header 'Content-Type: application/pdf'\
-  --upload-file main.pdf
+  --upload-file samplepaper.pdf
