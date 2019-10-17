@@ -1,6 +1,6 @@
 name: release PDF
 
-on: release
+on: [push]
 
 jobs:
   build:
@@ -15,9 +15,9 @@ jobs:
       with:
         args: run -v $PWD:/workdir paperist/alpine-texlive-ja latexmk main.tex
 
-    - name: Release PDF
-      uses: JasonEtco/upload-to-release@master
+    - name: Upload PDF
+      uses: softprops/action-gh-release@v1
       with:
-        args: main.pdf application/pdf
+        files: main.pdf
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
