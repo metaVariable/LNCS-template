@@ -4,8 +4,11 @@ set -eux
 GITHUB_OWNER=${GITHUB_OWNER:-"undefined"}
 GITHUB_REPO=${GITHUB_REPO:-"undefined"}
 
+COMPILER=${COMPILER:-"platex"}
+TARGET=${TARGET:-"main"}
+
 # build pdf (change if necessary)
-pdflatex main.tex
+${COMPILER} ${TARGET}.tex
 
 # create release
 res=`curl -H "Authorization: token $GITHUB_TOKEN" -X POST https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases \
@@ -22,6 +25,6 @@ res=`curl -H "Authorization: token $GITHUB_TOKEN" -X POST https://api.github.com
 rel_id=`echo ${res} | python3 -c 'import json,sys;print(json.load(sys.stdin)["id"])'`
 
 # upload built pdf
-curl -H "Authorization: token $GITHUB_TOKEN" -X POST https://uploads.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases/${rel_id}/assets?name=main.pdf\
+curl -H "Authorization: token $GITHUB_TOKEN" -X POST https://uploads.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases/${rel_id}/assets?name=${TARGET}.pdf\
   --header 'Content-Type: application/pdf'\
-  --upload-file main.pdf
+  --upload-file ${TARGET}.pdf
