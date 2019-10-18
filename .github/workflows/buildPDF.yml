@@ -1,6 +1,6 @@
-name: release PDF
+name: build PDF
 
-on: [push]
+on: push
 
 jobs:
   build:
@@ -10,11 +10,12 @@ jobs:
     steps:
     - uses: actions/checkout@v1
       
-    - name: Build PDF
+    - name: build
       run: docker run -v $PWD:/workdir paperist/alpine-texlive-ja latexmk main.tex
 
-    - name: Upload PDF
+    - name: release
       uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
       with:
         files: main.pdf
       env:
