@@ -2,7 +2,7 @@
 
 ## Features
 
-- push commits to build `main.tex` (`ipsj_v4` format)
+- push commits to build `main.tex` (default: [`ipsj_v4`](https://www.ipsj.or.jp/journal/submit/style.html) format)
 - push tags to release `main.pdf`
 
 
@@ -13,7 +13,7 @@
 
 (Requirement: [GitHub Actions](https://github.com/features/actions))
 1. Fork this repository
-2. modify files as you wish (configured for `ipsj_v4` format by default)
+2. modify files as you wish (default: `ipsj_v4` format)
 3. Push commits to automatically build `main.tex`, and push tags to release generated PDF (`main.pdf`)
 
 ## Configurations
